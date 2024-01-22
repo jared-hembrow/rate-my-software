@@ -1,0 +1,15 @@
+.details-container {
+  display: flex;
+}
+.profile-container {
+  color: #fff;
+}
+
+.text-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.action-hover:hover {
+  cursor: pointer;
+}

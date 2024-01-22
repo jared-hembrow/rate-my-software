@@ -1,0 +1,33 @@
+.main-body {
+  background-color: var(--dark-blue);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.main-container {
+  padding: 5%;
+  height: 92.5vh;
+  width: 100%;
+  z-index: 100;
+  position: absolute;
+}
+.main-header {
+  margin-left: 10%;
+  /* max-width: 50%; */
+  font-size: 4rem;
+  font-weight: bold;
+  color: #fff;
+}
+.sub-header {
+  margin-left: 10%;
+  color: #fff;
+}
+
+.image-container {
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+  z-index: 10;
+}
+.display-image {
+  height: 30vw;
+  border-radius: 15px;
+}
