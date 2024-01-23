@@ -13,3 +13,60 @@
 .action-hover:hover {
   cursor: pointer;
 }
+
+/* New project form */
+.new-project-form {
+  background-color: var(--midnight-blue);
+  padding: 15px;
+  border-radius: 5px;
+}
+.x-icon > div {
+  margin-left: 15px;
+}
+.x-icon {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.5rem;
+}
+.x-icon-edit:hover {
+  cursor: pointer;
+  color: blue;
+}
+.x-icon-delete:hover {
+  cursor: pointer;
+  color: red;
+}
+.delete-icon-confirm {
+  color: greenyellow;
+}
+
+.delete-icon-cancel {
+  color: red;
+}
+.delete-prompt-icons {
+  font-size: 2rem;
+  display: flex;
+}
+.delete-prompt-icons:hover {
+  cursor: pointer;
+}
+.new-project-submit-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.user-project-list-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-project-list-item-col {
+  width: 25%;
+}
+
+.new-project-button {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  right: 0px;
+}

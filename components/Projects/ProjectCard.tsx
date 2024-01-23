@@ -59,7 +59,7 @@ const ProjectCard: FC<Props> = ({ project }) => {
         <blockquote className="blockquote mb-0">
           {renderDescription(project.description)}
           <footer className="blockquote-footer">
-            Author: <cite title="Source Title">Jared Adam Hembrow</cite>
+            Author: <cite title="Source Title">{project.author}</cite>
           </footer>
         </blockquote>
       </div>
