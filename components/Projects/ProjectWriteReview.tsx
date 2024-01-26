@@ -1,15 +1,32 @@
+/**
+ * React component for rendering a form to write a review for a project.
+ * @param {Props} onSubmit - Callback function to handle form submission.
+ * @returns {JSX.Element} - Returns the JSX representation of the project review form.
+ */
+
 "use client";
 import React, { FC, useState } from "react";
-
 import style from "./Project.module.css";
+
+// Define the type for the properties passed to the Function Component (FC)
 type Props = {
   onSubmit: (form: FormValues) => void;
 };
+
+// Define the type for the form values
 type FormValues = {
   rating: number;
   comment: string;
 };
+
+// Define the ProjectWriteReview Function Component (FC)
 const ProjectWriteReview: FC<Props> = ({ onSubmit }) => {
+  // State variables to manage form inputs and toast display
+  const [rating, setRating] = useState<number>(50);
+  const [comment, setComment] = useState<string>("");
+  const [toast, setToast] = useState<boolean>(false);
+
+  // Function to handle form submission
   const handleSubmit = () => {
     console.log("submit");
     if (!comment) {
@@ -18,9 +35,8 @@ const ProjectWriteReview: FC<Props> = ({ onSubmit }) => {
     }
     onSubmit({ rating, comment });
   };
-  const [rating, setRating] = useState<number>(50);
-  const [comment, setComment] = useState<string>("");
-  const [toast, setToast] = useState<boolean>(false);
+
+  // Function to render a toast notification for an invalid review
   const renderToast = () => (
     <div
       key={`review-toast-${toast}`}
@@ -39,7 +55,6 @@ const ProjectWriteReview: FC<Props> = ({ onSubmit }) => {
     >
       <div className="toast-header warning">
         <strong className="me-auto">Invalid Review</strong>
-
         <button
           onClick={() => setToast(false)}
           type="button"
@@ -51,11 +66,13 @@ const ProjectWriteReview: FC<Props> = ({ onSubmit }) => {
       <div className="toast-body">Please enter text into the comment field</div>
     </div>
   );
+
+  // Return the JSX representation of the project review form
   return (
     <div>
       {renderToast()}
       <div className="mb-3">
-        <label htmlFor="exampleFormControlInput1" className="form-label">
+        <label htmlFor="customRange1" className="form-label">
           Rating: {rating}
         </label>
         <input
@@ -96,4 +113,5 @@ const ProjectWriteReview: FC<Props> = ({ onSubmit }) => {
   );
 };
 
+// Export the ProjectWriteReview Function Component (FC) as the default export
 export default ProjectWriteReview;

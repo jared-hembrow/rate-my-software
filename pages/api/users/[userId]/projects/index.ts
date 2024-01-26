@@ -1,38 +1,31 @@
+// Import required functions and types from the modules and files
 import clientPromise from "@/DB/mongo";
-import {
-  createProject,
-  deleteProject,
-  getAllProjects,
-  getProject,
-  getProjectCollection,
-  updateProject,
-} from "@/DB/projects";
-import { getUserCollection } from "@/DB/users";
+import { getAllProjects, getProjectCollection } from "@/DB/projects";
 import { NextApiRequest, NextApiResponse } from "next";
-const checkBody = (project: { [key: string]: any }): project is Project => {
-  if (!project.id && typeof project.id !== "string") return false;
-  if (!project.name && typeof project.name !== "string") return false;
-  if (!project.description && typeof project.description !== "string")
-    return false;
-  if (!project.authorId && typeof project.authorId !== "string") return false;
-  if (!project.author && typeof project.author !== "string") return false;
-  if (!project.links && !Array.isArray(project.links)) return false;
-  if (!project.reviews && !Array.isArray(project.reviews)) return false;
-  return true;
-};
+
+// Exported default asynchronous function (Next.js API route)
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  // Extract user ID from the request query parameters
   const userId = req.query.userId;
 
+  // Check if user ID is missing
   if (!userId) {
     res.status(400).end();
     return;
   }
 
+  // Retrieve the MongoDB client from the promise
   const client = await clientPromise;
+
+  // Get the 'projects' collection from the MongoDB client
   const col = getProjectCollection(client);
 
+  // Handle GET method
   if (req.method === "GET") {
+    // Retrieve all projects for a specific user
     const get = await getAllProjects(col, userId.toString());
+
+    // Respond based on the result of the retrieval
     if (!get) {
       res.status(404).end();
       return;
@@ -40,6 +33,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json(get);
     return;
   }
+
+  // Respond with a 405 Method Not Allowed status for unsupported methods
   res.status(405).end();
   return;
 };

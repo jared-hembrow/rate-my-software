@@ -1,17 +1,32 @@
+/**
+ * React component for rendering a form to create a new project.
+ * @param {Props} onCancel - Callback function to handle cancellation of the form.
+ * @param {Props} onSubmit - Callback function to handle form submission.
+ * @param {Props} values - Initial values for the form fields (optional).
+ * @returns {JSX.Element} - Returns the JSX representation of the new project form.
+ */
+
 "use client";
 import React, { FC, useState } from "react";
 import style from "./UserProfile.module.css";
+
+// Define the type for the properties passed to the Function Component (FC)
 type Props = {
   onCancel: () => void;
   onSubmit: (formValues: ProjectForm) => void;
   values?: Project;
 };
+
+// Define the type for the form values
 export type ProjectForm = {
   name: string;
   description: string;
   links: ProjectLink[];
 };
+
+// Define the NewProject Function Component (FC)
 const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
+  // State variables to manage form inputs
   const [projectName, setProjectName] = useState<string>(
     values ? values.name : ""
   );
@@ -34,18 +49,28 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
       ? values.links[values.links.findIndex((i) => i.type === "live")].url || ""
       : ""
   );
+
+  // Function to handle form submission
   const handleSubmit = () => {
     if (!projectName || !description) return;
+
+    // Create form values object
     const formValues: ProjectForm = {
       name: projectName,
       description,
       links: [],
     };
+
+    // Add links to the form values if provided
     if (githubUrl) formValues.links.push({ type: "github", url: githubUrl });
     if (repoUrl) formValues.links.push({ type: "repo", url: repoUrl });
     if (liveUrl) formValues.links.push({ type: "live", url: liveUrl });
+
+    // Call the onSubmit callback with the form values
     onSubmit(formValues);
   };
+
+  // Return the JSX representation of the new project form
   return (
     <div className={style["new-project-form"]}>
       <div className={style["x-icon"]}>
@@ -53,7 +78,7 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
       </div>
       <form>
         <div className="mb-3">
-          <label htmlFor="exampleInputEmail1" className="form-label">
+          <label htmlFor="exampleInputtext" className="form-label">
             Name
           </label>
           <input
@@ -76,7 +101,7 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-check-label" htmlFor="exampleCheck1">
+          <label className="form-check-label" htmlFor="githubUrl">
             Github Repository URL
           </label>
           <input
@@ -85,11 +110,11 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
             placeholder="Optional"
             type="text"
             className="form-control"
-            id="exampleCheck1"
+            id="githubUrl"
           />
         </div>
         <div className="mb-3">
-          <label className="form-check-label" htmlFor="exampleCheck1">
+          <label className="form-check-label" htmlFor="repoUrl">
             Repository URL
           </label>
           <input
@@ -98,11 +123,11 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
             placeholder="Optional"
             type="text"
             className="form-control"
-            id="exampleCheck1"
+            id="repoUrl"
           />
         </div>
         <div className="mb-3">
-          <label className="form-check-label" htmlFor="exampleCheck1">
+          <label className="form-check-label" htmlFor="liveUrl">
             Live URL
           </label>
           <input
@@ -111,7 +136,7 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
             placeholder="Optional"
             type="text"
             className="form-control"
-            id="exampleCheck1"
+            id="liveUrl"
           />
         </div>
         <div className={style["new-project-submit-button"]}>
@@ -128,4 +153,5 @@ const NewProject: FC<Props> = ({ onCancel, onSubmit, values }) => {
   );
 };
 
+// Export the NewProject Function Component (FC) as the default export
 export default NewProject;
