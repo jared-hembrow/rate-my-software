@@ -16,7 +16,6 @@ const page: FC<Props> = async ({ params }) => {
   const dbClient = await clientPromise;
   const col = getUserCollection(dbClient);
   const projectCol = getProjectCollection(dbClient);
-  // console.log("CLient",dbClient)
   const user = await getUser(col, session.user?.email || "");
   const project = await getProject(projectCol, projectId);
   console.log("retrived user", user);
@@ -24,7 +23,10 @@ const page: FC<Props> = async ({ params }) => {
   if (!project) return null;
   return (
     <div className="container">
-      <ProjectView project={project} />
+      <ProjectView
+        usersOwnProject={project.authorId === user.id}
+        project={project}
+      />
     </div>
   );
 };

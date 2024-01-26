@@ -5,9 +5,10 @@ import Link from "next/link";
 import ProjectWriteReview from "./ProjectWriteReview";
 type Props = {
   project: Project;
+  usersOwnProject: boolean;
 };
 
-const ProjectView: FC<Props> = ({ project }) => {
+const ProjectView: FC<Props> = ({ project, usersOwnProject }) => {
   const renderLinks = () => {
     if (!project.links) return null;
     return project.links.map((link) => {
@@ -66,7 +67,7 @@ const ProjectView: FC<Props> = ({ project }) => {
         <hr />
         <h3>Reviews</h3>
         <div>
-          <ProjectWriteReview onSubmit={onSubmit} />
+          {usersOwnProject ? null : <ProjectWriteReview onSubmit={onSubmit} />}
         </div>
         <div>{renderReviews()}</div>
       </div>
